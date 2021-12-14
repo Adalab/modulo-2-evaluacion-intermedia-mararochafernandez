@@ -14,17 +14,19 @@
         <h1 class="main__title">Juego piedra, papel y tijera</h1>
         <form class="form" method="post" action="#">
             <label for="game">Introduce aquí tu jugada:</label>
-            <select class="form__select" id="form__select" name="game">
-                <option value="">Seleccione su jugada</option>
-                <option value="1">Piedra</option>
-                <option value="2">Papel</option>
-                <option value="3">Tijera</option>
-            </select>
-            <input class="form__submit" type="submit">Jugar</button>
+            <div class="form__wrapper">
+                <select class="form__select" id="form__select" name="game">
+                    <option value="">Seleccione su jugada</option>
+                    <option value="1">Piedra</option>
+                    <option value="2">Papel</option>
+                    <option value="3">Tijera</option>
+                </select>
+                <input class="form__submit" type="submit" value="Jugar" />
+            </div>
         </form>
-        <p class="message">¡Vamos a jugar!</p>
-        <p class="gamer">Jugadora: 0</p>
-        <p class="computer">Computadora: 0</p>
+        <p class="main__message">¡Vamos a jugar!</p>
+        <p class="main__gamer">Jugadora: 0</p>
+        <p class="main__computer">Computadora: 0</p>
     </main>
     <script type="text/javascript" src="./js/main.js"></script>
 </body>

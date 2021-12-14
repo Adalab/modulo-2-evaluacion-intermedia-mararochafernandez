@@ -1,4 +1,4 @@
-## Mara Rocha Fernández ✨
+### Mara Rocha Fernández ✨
 
 ---
 
@@ -7,6 +7,6 @@
 Ejercicio de evaluación intermedia
 Módulo 2 - JavaScript
 
-### Características de la aplicación web:
+## Características de la aplicación web:
 
 - Bla blá
