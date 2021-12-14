@@ -26,22 +26,28 @@ function getComputerPlay(number) {
   return result;
 }
 
-// compare user play and computer play
+// compare user play and computer play and return game result
 function comparePlays(user, computer) {
   if (user === computer) {
-    console.log('empate');
+    return 'EMPATE';
   } else if (user === piedra && computer === papel) {
-    console.log('gana la máquina');
+    accComputer++;
+    return 'GANA LA MÁQUINA';
   } else if (user === piedra && computer === tijera) {
-    console.log('gana la usuaria');
+    accUser++;
+    return 'GANA LA USUARIA';
   } else if (user === papel && computer === piedra) {
-    console.log('gana la usuaria');
+    accUser++;
+    return 'GANA LA USUARIA';
   } else if (user === papel && computer === tijera) {
-    console.log('gana la máquina');
+    accComputer++;
+    return 'GANA LA MÁQUINA';
   } else if (user === tijera && computer === piedra) {
-    console.log('gana la máquina');
+    accComputer++;
+    return 'GANA LA MÁQUINA';
   } else if (user === tijera && computer === papel) {
-    console.log('gana la usuaria');
+    accUser++;
+    return 'GANA LA USUARIA';
   }
 }
 
@@ -49,10 +55,16 @@ function comparePlays(user, computer) {
 const piedra = 1;
 const papel = 2;
 const tijera = 3;
+let acc = 0;
+let accUser = 0;
+let accComputer = 0;
 
 // html elements
 const buttonElement = getElement('.js-button');
 const selectElement = getElement('.js-select');
+const messageElement = getElement('.js-message');
+const userElement = getElement('.js-user');
+const computerElement = getElement('.js-computer');
 
 // event listener and handler
 buttonElement.addEventListener('click', handleClickButton);
@@ -69,13 +81,29 @@ function handleClickButton(event) {
 
     // random number between 1-9
     const randomNumber = getRandomNumber(9);
-    console.log(`Número aleatorio: ${randomNumber}`);
+    console.log(`Nº aleatorio: ${randomNumber}`);
 
     // computer play (number between 1-3)
     const computerPlay = getComputerPlay(randomNumber);
     console.log(`Jugada de la computadora: ${computerPlay}`);
 
-    // compare plays
-    comparePlays(userPlay, computerPlay);
+    // compare plays and return game result
+    const gameResult = comparePlays(userPlay, computerPlay);
+
+    // acc++
+    acc++;
+    console.log(`Partida nº: ${acc}`);
+
+    // paint messages
+    messageElement.innerHTML = gameResult;
+    userElement.innerHTML = 'Usuaria: ' + accUser;
+    computerElement.innerHTML = 'Computadora: ' + accComputer;
+
+    // reset acc, accUser and accComputer
+    if (acc === 10) {
+      acc = 0;
+      accUser = 0;
+      accComputer = 0;
+    }
   }
 }
