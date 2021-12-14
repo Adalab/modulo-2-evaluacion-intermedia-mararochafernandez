@@ -30,7 +30,7 @@ body {
     column-gap: 10px;
 }
 
-.form__submit {
+.form__button {
     background-color: #666;
     color: #fff;
     padding: 5px 10px;

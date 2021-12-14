@@ -29,31 +29,31 @@ function generateComputerPlay(number) {
 // compare plays, increase scores and return game result
 function comparePlays(user, computer) {
   if (user === computer) {
-    return 'EMPATE';
+    return 'Empate';
   } else if (user === piedra && computer === papel) {
     accumulators.computerScore++;
-    return 'GANA LA MÁQUINA';
+    return 'Gana la máquina';
   } else if (user === piedra && computer === tijera) {
     accumulators.userScore++;
-    return 'GANA LA USUARIA';
+    return 'Gana la usuaria';
   } else if (user === papel && computer === piedra) {
     accumulators.userScore++;
-    return 'GANA LA USUARIA';
+    return 'Gana la usuaria';
   } else if (user === papel && computer === tijera) {
     accumulators.computerScore++;
-    return 'GANA LA MÁQUINA';
+    return 'Gana la máquina';
   } else if (user === tijera && computer === piedra) {
     accumulators.computerScore++;
-    return 'GANA LA MÁQUINA';
+    return 'Gana la máquina';
   } else if (user === tijera && computer === papel) {
     accumulators.userScore++;
-    return 'GANA LA USUARIA';
+    return 'Gana la usuaria';
   }
 }
 
 // reset number of plays, user score and computer score
-function resetAccs() {
-  if (accumulators.numberOfPlays === 10) {
+function resetAccs(reset) {
+  if (accumulators.numberOfPlays === 10 || reset === true) {
     accumulators.numberOfPlays = 0;
     accumulators.userScore = 0;
     accumulators.computerScore = 0;
@@ -69,18 +69,21 @@ const accumulators = {
   userScore: 0,
   computerScore: 0
 }
+let resetButton = false;
 
 // html elements
-const buttonElement = getElement('.js-button');
+const submitElement = getElement('.js-submit');
 const selectElement = getElement('.js-select');
 const messageElement = getElement('.js-message');
 const userElement = getElement('.js-user');
 const computerElement = getElement('.js-computer');
+const resetElement = getElement('.js-reset');
 
 // event listener and handler
-buttonElement.addEventListener('click', handleClickButton);
+submitElement.addEventListener('click', handleClickSubmit);
+resetElement.addEventListener('click', handleClickReset);
 
-function handleClickButton(event) {
+function handleClickSubmit(event) {
   event.preventDefault();
 
   // user play (number between 1-3)
@@ -111,7 +114,21 @@ function handleClickButton(event) {
     computerElement.innerHTML = `Computadora: ${accumulators.computerScore}`;
 
     // reset accumulators
-    resetAccs();
+    resetButton = false;
+    resetAccs(resetButton);
     console.log('---');
   }
+}
+
+function handleClickReset(event) {
+  event.preventDefault();
+
+  // reset accumulators
+  resetButton = true;
+  resetAccs(resetButton);
+
+  // paint messages: game result, user score and computer score
+  messageElement.innerHTML = '¡Partida reiniciada!';
+  userElement.innerHTML = 'Usuaria: 0';
+  computerElement.innerHTML = 'Computadora: 0';
 }
