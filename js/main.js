@@ -10,44 +10,53 @@ function getElement(selector) {
   return document.querySelector(selector);
 }
 
-// get computer play according to random number
-function getComputerPlay(number) {
-  let result = 0;
+// generate computer play according to random number
+function generateComputerPlay(number) {
+  let play = 0;
   if (number < 3) {
     // number: 1, 2, 3
-    result = piedra;
+    play = piedra;
   } else if (number > 6) {
     // number: 7, 8, 9
-    result = papel;
+    play = papel;
   } else {
     // number: 4, 5, 6
-    result = tijera;
+    play = tijera;
   }
-  return result;
+  return play;
 }
 
-// compare user play and computer play and return game result
+// compare plays, increase scores and return game result
 function comparePlays(user, computer) {
   if (user === computer) {
     return 'EMPATE';
   } else if (user === piedra && computer === papel) {
-    accComputer++;
+    accumulators.computerScore++;
     return 'GANA LA MÁQUINA';
   } else if (user === piedra && computer === tijera) {
-    accUser++;
+    accumulators.userScore++;
     return 'GANA LA USUARIA';
   } else if (user === papel && computer === piedra) {
-    accUser++;
+    accumulators.userScore++;
     return 'GANA LA USUARIA';
   } else if (user === papel && computer === tijera) {
-    accComputer++;
+    accumulators.computerScore++;
     return 'GANA LA MÁQUINA';
   } else if (user === tijera && computer === piedra) {
-    accComputer++;
+    accumulators.computerScore++;
     return 'GANA LA MÁQUINA';
   } else if (user === tijera && computer === papel) {
-    accUser++;
+    accumulators.userScore++;
     return 'GANA LA USUARIA';
+  }
+}
+
+// reset number of plays, user score and computer score
+function resetAccs() {
+  if (accumulators.numberOfPlays === 10) {
+    accumulators.numberOfPlays = 0;
+    accumulators.userScore = 0;
+    accumulators.computerScore = 0;
   }
 }
 
@@ -55,9 +64,11 @@ function comparePlays(user, computer) {
 const piedra = 1;
 const papel = 2;
 const tijera = 3;
-let acc = 0;
-let accUser = 0;
-let accComputer = 0;
+const accumulators = {
+  numberOfPlays: 0,
+  userScore: 0,
+  computerScore: 0
+}
 
 // html elements
 const buttonElement = getElement('.js-button');
@@ -84,26 +95,23 @@ function handleClickButton(event) {
     console.log(`Nº aleatorio: ${randomNumber}`);
 
     // computer play (number between 1-3)
-    const computerPlay = getComputerPlay(randomNumber);
+    const computerPlay = generateComputerPlay(randomNumber);
     console.log(`Jugada de la computadora: ${computerPlay}`);
 
-    // compare plays and return game result
+    // compare plays, increase scores and return game result
     const gameResult = comparePlays(userPlay, computerPlay);
 
-    // acc++
-    acc++;
-    console.log(`Partida nº: ${acc}`);
+    // increase number of plays
+    accumulators.numberOfPlays++;
+    console.log(`Nº de partida: ${accumulators.numberOfPlays}`);
 
-    // paint messages
+    // paint messages: game result, user score and computer score
     messageElement.innerHTML = gameResult;
-    userElement.innerHTML = 'Usuaria: ' + accUser;
-    computerElement.innerHTML = 'Computadora: ' + accComputer;
+    userElement.innerHTML = `Usuaria: ${accumulators.userScore}`;
+    computerElement.innerHTML = `Computadora: ${accumulators.computerScore}`;
 
-    // reset acc, accUser and accComputer
-    if (acc === 10) {
-      acc = 0;
-      accUser = 0;
-      accComputer = 0;
-    }
+    // reset accumulators
+    resetAccs();
+    console.log('---');
   }
 }
