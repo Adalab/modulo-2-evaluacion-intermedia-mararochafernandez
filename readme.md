@@ -4,9 +4,6 @@
 
 # Juego piedra, papel y tijera
 
-Ejercicio de evaluación intermedia
 Módulo 2 - JavaScript
 
-## Características de la aplicación web:
-
-- Bla blá
+Ejercicio de evaluación intermedia
